@@ -1,29 +1,36 @@
 import React , {useState} from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 export default function App() {
-  const [name,setName] = useState('robert');
-  const [age,setAge] = useState('35');
+  const [people,setPeople] = useState([
+    {name: 'robert', key: '1'},
+    {name: 'roberta', key: '2'},
+    {name: 'robert2', key: '3'},
+    {name: 'robert3', key: '4'},
+    {name: 'robert4', key: '5'},
+    {name: 'robert4', key: '6'},
+    {name: 'robert4', key: '7'},
+    {name: 'robert4', key: '8'},
+    {name: 'robert4', key: '9'},
+    {name: 'robert4', key: '10'}
+    
+  ])
   
 
   return (
     <View style={styles.container}>
-      <Text>Enter name</Text>
-      <TextInput
-        multiline
-        style={styles.input}
-        placeholder="e.h.John Doe"
-        onChangeText={(val) => setName(val)}/>
-
-      <Text>Enter Age</Text>
-            <TextInput
-              keyboardType='numeric'
-              style={styles.input}
-              placeholder="32"
-              onChangeText={(val) => setAge(val)}/>
-            <Text>
-        My  name is {name} and age is {age}
-      </Text>
+      <ScrollView>
+      {
+        people.map(item => (
+            <View key={item.key}>
+              <Text style={styles.item}>
+                {item.name}
+                </Text>
+              </View>
+          )
+        )
+      }
+    </ScrollView>
     </View>
    );
 }
@@ -32,17 +39,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 20
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
-  buttonContainer:{
-    marginTop:20
-  },
-  input:{
-    borderWidth: 1 ,
-    borderColor : 'red',
-    padding: 8,
-    margin: 10,
-    width: 200
+  item:{
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 24
   }
 });
