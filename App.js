@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import { StyleSheet, Text, View,FlatList ,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,FlatList, Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import Header from './components/Header'
 import TododItem from './components/TododItem'
 import AddTodo from './components/AddTodo'
@@ -20,16 +20,37 @@ export default function App() {
   }
 
   const submitHandler = (text) => {
-    setTodos((prevTodos) => {
-      return [
-        {text:text,key : Math.random().toString()}
-        ,
-        ...prevTodos
-      ]
-    })
+    if(text.length > 3){
+      setTodos((prevTodos) => {
+        return [
+          {text:text,key : Math.random().toString()}
+          ,
+          ...prevTodos
+        ]
+      })
+    }else{
+      Alert.alert(
+        'Alert Title',
+        'My Alert Msg',
+        [
+          {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }
+
   }
 
   return (
+    <TouchableWithoutFeedback onPress={() => {console.log('disiees keboard');
+      Keyboard.dismiss();
+    }}>
     <View style={styles.container}>
       <Header/>
       <View style={styles.content}>
@@ -44,6 +65,7 @@ export default function App() {
           </View>
         </View>
     </View>
+    </TouchableWithoutFeedback>
    );
 }
 
